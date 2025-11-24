@@ -1,0 +1,229 @@
+@import "tailwindcss";
+
+/* Custom Fonts */
+@font-face {
+    font-family: 'Brothers';
+    src: url('/fonts/Brothers-OT-Bold.woff2') format('woff2'),
+    url('/fonts/Brothers-OT-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Interstate';
+    src: url('/fonts/Interstate-Light.woff2') format('woff2'),
+    url('/fonts/Interstate-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+/* Tailwind v4 Theme Configuration - Stormlight Archive Inspired */
+@theme inline {
+    /* Core Brand Colors */
+    --color-midnight: #202020;
+    --color-kholin-blue: #1C4668;
+    --color-kholin-blue-deep: #153A56;
+    --color-stormlight-gold: #E2A63B;
+    --color-stormlight-gold-light: #F5C970;
+    --color-stone: #FEF6DF;
+    --color-stone-faded: #E8DCC6;
+    --color-stone-border: #D4C9B0;
+
+    /* Shared Colors */
+    --color-lifelight-green: #5a8f6f;
+
+    /* Support buttons */
+    --color-kofi: #FF5E5B;
+    --color-patreon: #FF424D;
+
+    /* Semantic aliases */
+    --color-primary: var(--color-kholin-blue);
+    --color-primary-light: var(--color-kholin-blue-deep);
+    --color-accent: var(--color-stormlight-gold);
+    --color-accent-light: var(--color-stormlight-gold-light);
+
+
+    /* Dark Theme Colors */
+    --dark-bg-primary: var(--color-midnight);
+    --dark-bg-secondary: var(--color-kholin-blue);
+    --dark-accent-primary: var(--color-stormlight-gold);
+    --dark-accent-light: var(--color-stormlight-gold-light);
+    --dark-text-primary: var(--color-stone);
+    --dark-text-secondary: var(--color-stone-faded);
+
+    /* Light Theme Colors */
+    --light-bg-primary: var(--color-stone);
+    --light-bg-secondary: #ffffff;
+    --light-accent-primary: var(--color-kholin-blue);
+    --light-accent-secondary: var(--color-stormlight-gold);
+    --light-text-primary: var(--color-midnight);
+    --light-text-secondary: var(--color-kholin-blue);
+    --light-border: var(--color-stone-border);
+
+
+
+    /* Current theme - defaults to light */
+    --bg-primary: var(--light-bg-primary);
+    --bg-secondary: var(--light-bg-secondary);
+    --accent-primary: var(--light-accent-primary);
+    --accent-secondary: var(--light-accent-secondary);
+    --text-primary: var(--light-text-primary);
+    --text-secondary: var(--light-text-secondary);
+
+    --color-background: var(--color-stone);
+
+
+    --font-display: 'Brothers', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-sans: 'Interstate', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.dark {
+    --bg-primary: var(--dark-bg-primary);
+    --bg-secondary: var(--dark-bg-secondary);
+    --accent-primary: var(--dark-accent-primary);
+    --accent-secondary: var(--dark-accent-light);
+    --text-primary: var(--dark-text-primary);
+    --text-secondary: var(--dark-text-secondary);
+
+    --color-background: var(--color-midnight);
+}
+
+:root {
+    color-scheme: light dark;
+}
+
+/* Base Styles */
+body {
+    @apply leading-relaxed;
+    font-family: var(--font-sans), sans-serif;
+    font-weight: 300;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+}
+@layer base {
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-display), serif;
+        font-weight: 700;
+    }
+
+    h2 {
+        @apply text-2xl md:text-3xl;
+    }
+}
+
+/* Component Layer for reusable patterns */
+@layer components {
+
+    img, svg {
+         @apply select-none;
+    }
+
+    .logo-light {
+        display: block;
+    }
+
+    .logo-dark {
+        display: none;
+    }
+
+    [data-theme="dark"] .logo-light {
+        display: none;
+    }
+
+    [data-theme="dark"] .logo-dark {
+        display: block;
+    }
+
+
+    .btn {
+        font-family: var(--font-display);
+        font-weight: 700;
+        @apply px-6 py-3 rounded-full transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed;
+    }
+
+    .btn-primary {
+        @apply bg-stormlight-gold text-midnight hover:bg-stormlight-gold-light hover:-translate-y-0.5 hover:shadow-lg;
+    }
+
+    .btn-secondary {
+        @apply bg-kholin-blue text-stone hover:bg-kholin-blue-deep;
+    }
+
+    .card {
+        @apply bg-white rounded-lg p-8 shadow-sm border-2 border-stone-border;
+    }
+
+    .input {
+        @apply px-5 py-3 border-2 border-stormlight-gold rounded-full text-base bg-stone text-midnight focus:outline-none focus:ring-2 focus:ring-stormlight-gold/30;
+    }
+
+    .font-display {
+        font-family: var(--font-display);
+        font-weight: 700;
+    }
+}
+
+/* Utility classes for episode description truncation */
+@layer utilities {
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+/* View Transitions API */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 250ms;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Slide + fade for a polished feel */
+::view-transition-old(root) {
+    animation-name: slide-out;
+}
+
+::view-transition-new(root) {
+    animation-name: slide-in;
+}
+
+@keyframes slide-out {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation-duration: 0ms;
+    }
+}
