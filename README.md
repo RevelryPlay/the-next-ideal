@@ -2,20 +2,6 @@
 
 This is the website for **The Next Ideal**, a podcast exploring self-improvement through the lens of Brandon Sanderson's Stormlight Archive.
 
-## What This Website Does
-
-- Displays your podcast episodes (pulled automatically from your RSS feed)
-- Collects email signups from visitors
-- Links to your social media accounts
-- Links to support pages (Ko-fi, Patreon)
-- Has a trailer video section
-- Works on phones, tablets, and computers
-- Has light and dark mode
-
-## Website Address
-
-The live website is at: **https://thenextideal.com**
-
 ## How to Update Content
 
 Most content on the site can be changed by editing a single file: `src/config.js`
@@ -39,7 +25,7 @@ Edit the file `src/components/Intro.jsx` and update the text between the `<p>` t
 ## Viewing Subscriber Emails
 
 1. Go to **thenextideal.com/admin**
-2. Enter the admin password (found in `server.config.js`)
+2. Enter the admin password (found in `server.config.js` copy the `server.config.example.js` the first time)
 3. You'll see a list of all email subscribers
 4. You can download the list as a CSV file
 
