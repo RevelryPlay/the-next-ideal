@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"vite\" \"node server.js\"",
-    "build": "node scripts/generate-sitemap.js && vite build",
+    "build-all": "node scripts/generate-sitemap.js && vite build",
+    "build": "vite build",
     "generate:sitemap": "node scripts/generate-sitemap.js",
     "start": "NODE_ENV=production node server.js",
     "generate:social": "node scripts/generate-social-image.js"
