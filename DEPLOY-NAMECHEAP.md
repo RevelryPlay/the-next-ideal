@@ -35,130 +35,149 @@ You're now connected to your server!
 
 ---
 
-## Step 2: Set Up the Server
+## Step 2: Run the Automated Setup (Recommended)
 
-Copy and paste these commands one at a time. Wait for each to finish before running the next.
+**One command does everything!** This script will:
+- Install all dependencies (Node.js, PM2, Nginx, Git, GitHub CLI, Certbot)
+- Authenticate with GitHub
+- Clone your repository
+- Set up your admin password
+- Build and start your site
+- Configure SSL certificate
+- Set up your domain with Nginx
 
-**Update the server:**
+Just run this one command:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/RevelryPlay/the-next-ideal/main/scripts/first-run.sh | sudo bash
+```
+
+**The script will prompt you for:**
+1. GitHub authentication (follow the prompts)
+2. Your domain name (default: thenextideal.com)
+3. Whether to include www subdomain
+4. Your admin password
+
+**That's it!** The script handles everything. Skip to the "Updating Your Site" section below.
+
+---
+
+## Alternative: Manual Setup
+
+If you prefer to set up manually or the automated script doesn't work for you:
+
+<details>
+<summary>Click to expand manual setup steps</summary>
+
+### Step 2a: Update the Server
+
 ```bash
 apt update && apt upgrade -y
 ```
 
-**Install Node.js (runs your site):**
+### Step 2b: Install Dependencies
+
+**Install Node.js:**
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt install -y nodejs
 ```
 
-**Install PM2 (keeps your site running):**
+**Install other tools:**
 ```bash
+apt install -y git nginx certbot
 npm install -g pm2
 ```
 
-**Install Nginx (connects your domain to your site):**
+**Install GitHub CLI:**
 ```bash
-apt install -y nginx
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+apt update && apt install -y gh
 ```
 
-**Install Git (downloads your code):**
+### Step 2c: Authenticate GitHub
+
 ```bash
-apt install -y git
+gh auth login
 ```
 
----
-
-## Step 3: Download Your Site
+### Step 2d: Download Your Site
 
 ```bash
 mkdir -p /var/www
 cd /var/www
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git landing
+gh repo clone RevelryPlay/the-next-ideal landing
 cd landing
 ```
 
-Replace `YOUR_USERNAME/YOUR_REPO` with your actual GitHub repository path.
+### Step 2e: Configure Your Site
 
----
-
-## Step 4: Configure Your Site
-
-**Set up the admin password:**
 ```bash
 cp server.config.example.js server.config.js
 nano server.config.js
 ```
 
-Change `'change-this-password'` to a secure password you'll remember.
+Change the password, then save: `Ctrl + X`, `Y`, `Enter`
 
-Save the file: Press `Ctrl + X`, then `Y`, then `Enter`
+### Step 2f: Build and Start
 
-**Install and build:**
 ```bash
 npm install
 npm run build
-```
-
----
-
-## Step 5: Start Your Site
-
-```bash
 pm2 start ecosystem.config.cjs
 pm2 startup
 pm2 save
 ```
 
-Your site is now running! But it's only accessible via the IP address. Next we'll connect your domain.
+### Step 2g: SSL Certificate
 
----
-
-## Step 6: Get an SSL Certificate
-
-This gives your site the secure padlock (HTTPS).
-
-First, temporarily stop nginx:
 ```bash
 systemctl stop nginx
-```
-
-Then get your certificate (replace with your domain if different):
-```bash
-apt install -y certbot
 certbot certonly --standalone -d thenextideal.com -d www.thenextideal.com
 ```
 
-Follow the prompts - you'll need to enter an email address.
+### Step 2h: Configure Nginx
 
----
-
-## Step 7: Connect Your Domain
-
-Copy the nginx configuration file from your project:
 ```bash
 cp /var/www/landing/nginx.conf.example /etc/nginx/sites-available/thenextideal.com
 ln -s /etc/nginx/sites-available/thenextideal.com /etc/nginx/sites-enabled/
-```
-
-Test and start nginx:
-```bash
 nginx -t
 systemctl start nginx
 ```
 
 **Your site is now live at https://thenextideal.com!**
 
+</details>
+
 ---
 
 ## Updating Your Site
 
-When you make changes to your code:
+**Easy way** - use the update script:
+
+```bash
+cd /var/www/landing
+./scripts/rebuild-restart.sh
+```
+
+This script will:
+- Show recent commits from GitHub
+- Pull latest changes
+- Install dependencies
+- Rebuild the site
+- Restart the server
+- Show deployment status
+
+**Manual way:**
 
 ```bash
 cd /var/www/landing
 git pull
 npm install
 npm run build
-pm2 restart ecosystem.config.cjs
+pm2 restart landing
 ```
 
 ---
@@ -177,10 +196,14 @@ The easiest way:
 
 | What you want to do | Command |
 |---------------------|---------|
+| Update the site | `cd /var/www/landing && ./scripts/rebuild-restart.sh` |
 | Check if site is running | `pm2 status` |
 | View error messages | `pm2 logs landing` |
-| Restart the site | `pm2 restart ecosystem.config.cjs` |
+| Restart the site | `pm2 restart landing` |
 | Stop the site | `pm2 stop landing` |
+| View repo status | `gh repo view` |
+| List pull requests | `gh pr list` |
+| List releases | `gh release list` |
 
 ---
 
