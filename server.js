@@ -13,29 +13,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const parser = new Parser();
 
-// Security headers - relaxed in development for Lighthouse compatibility
+// Security headers - CSP disabled for development, other headers active
 const isDev = process.env.NODE_ENV !== 'production';
 app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: isDev
-        ? ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'blob:']
-        : ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", 'data:', 'https:'],
-      connectSrc: ["'self'", 'https://feeds.buzzsprout.com'],
-      frameSrc: ["'self'", 'https://www.youtube.com', 'https://www.youtube-nocookie.com'],
-      objectSrc: ["'none'"],
-      baseUri: ["'self'"],
-      ...(isDev && { workerSrc: ["'self'", 'blob:'] })
-    }
-  },
-  hsts: {
-    maxAge: 31536000,
-    includeSubDomains: true,
-    preload: true
-  }
+  contentSecurityPolicy: false, // Disabled to allow flexible development
+  hsts: false // Disabled in case you're not using HTTPS locally
 }));
 
 // Rate limiter for auth endpoints (5 attempts per 15 minutes)
