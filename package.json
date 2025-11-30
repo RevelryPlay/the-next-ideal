@@ -16,9 +16,7 @@
     "express-rate-limit": "^8.2.1",
     "helmet": "^8.1.0",
     "rss-parser": "^3.13.0",
-    "tailwindcss": "^4.1.17"
-  },
-  "devDependencies": {
+    "tailwindcss": "^4.1.17",
     "@vitejs/plugin-react": "^4.2.1",
     "concurrently": "^8.2.2",
     "react": "^18.2.0",
