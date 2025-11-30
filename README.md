@@ -26,13 +26,8 @@ Edit the file `src/components/Intro.jsx` and update the text between the `<p>` t
 
 1. Go to **thenextideal.com/admin**
 2. Enter the admin password (found in `server.config.js` copy the `server.config.example.js` the first time)
-3. You'll see a list of all email subscribers
-4. You can download the list as a CSV file
+3. You can download the list as a CSV file
 
 ## For Developers
 
 See [DEPLOY-NAMECHEAP.md](./DEPLOY-NAMECHEAP.md) for setup and deployment instructions.
-
-## Need Help?
-
-If something isn't working or you need to make changes you can't figure out, reach out to your developer for assistance.
