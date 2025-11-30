@@ -58,7 +58,7 @@ export default function Episode({ title, link, date, content, audioUrl, duration
             {title}
           </a>
         </h3>
-        {content && <p className="text-[0.95rem] text-kholin-blue/70 dark:text-stone/70 m-0 line-clamp-2">{content}</p>}
+        {content && <p className="text-[0.95rem] text-kholin-blue/70 dark:text-stone/70 m-0">{content}</p>}
         {audioUrl && (
           <audio className="w-full h-10 mt-2" controls preload="none">
             <source src={audioUrl} type="audio/mpeg" />

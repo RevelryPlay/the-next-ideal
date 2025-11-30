@@ -1,15 +1,4 @@
-const hosts = [
-    {
-        name: 'Steve',
-        image: 'steve-headshot',
-        bio: 'Add your bio here. Share your background, why you started this podcast, and what the Stormlight Archive means to you.',
-    },
-    {
-        name: 'Ben Jeppsen',
-        image: 'Ben_Jeppsen_Horizontal',
-        bio: 'Add your bio here. Share your background, why you started this podcast, and what the Stormlight Archive means to you.',
-    },
-];
+import { HOSTS } from '../config.js';
 
 // Responsive image component with modern formats
 const ResponsiveHostImage = ({ imageName, alt }) => {
@@ -50,7 +39,7 @@ export const Hosts = () => {
                 Meet the Hosts
             </h2>
             <div className="grid md:grid-cols-2 gap-10">
-                {hosts.map((host, index) => (
+                {HOSTS.map((host, index) => (
                     <div
                         key={index}
                         className="bg-[var(--bg-secondary)] rounded-lg shadow-sm border-2 border-stone-border dark:border-stormlight-gold flex flex-col items-center text-center p-8"

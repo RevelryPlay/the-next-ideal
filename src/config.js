@@ -70,6 +70,23 @@ export const ADMIN = {
   path: '/admin',
 };
 
+/**
+ * Podcast Hosts
+ * Information about the hosts of the podcast
+ */
+export const HOSTS = [
+  {
+    name: 'Steve Pond',
+    image: 'steve-headshot',
+    bio: 'Steven Pond is a voice actor and content creator who has been exploring the Cosmere on YouTube since 2018. He has been a panelist at almost every Dragonsteel convention, and is a licensed audiobook narrator for Sanderson\'s "Long Chills and Case Dough," which can be listened to on his YouTube Channel "Read And Find Out." Check out more of his voice work at stevenpond.com',
+  },
+  {
+    name: 'Ben Jeppsen',
+    image: 'Ben_Jeppsen_Horizontal',
+    bio: '',
+  },
+];
+
 
 /** * Default User Preferences
  */

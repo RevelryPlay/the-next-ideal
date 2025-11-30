@@ -10,12 +10,11 @@ export const Intro = () => {
                         Welcome to The Next Ideal
                     </h2>
                     <p className="text-lg text-kholin-blue dark:text-stone leading-relaxed mb-6">
-                        Add your intro text here. Describe what your podcast is about,
-                        what listeners can expect, and why they should tune in.
-                    </p>
-                    <p className="text-lg text-kholin-blue dark:text-stone leading-relaxed">
-                        Add more details about your show, the topics you cover,
-                        or what makes your podcast unique.
+                        Real lessons from a fantasy world: Steven Pond - @TheCosmerenaut and Ben Jeppsen - the Stormlight
+                        Psychologist approach the Stormlight Archive as a therapy text, starting with The Way of Kings by
+                        Brandon Sanderson. Bringing in modern psychology theories and therapy practices, Steve and Ben
+                        discuss the challenges and successes of your favorite characters, finding concrete steps to apply
+                        in your life, to help you find your Next Ideal.
                     </p>
                 </div>
 
