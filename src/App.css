@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 /* Custom Fonts */
-@font-face {
-    font-family: 'Brothers';
-    src: url('/fonts/Brothers-OT-Bold.woff2') format('woff2'),
-    url('/fonts/Brothers-OT-Bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
+/*@font-face {*/
+/*    font-family: 'brothers';*/
+/*    src: url('/fonts/Brothers-OT-Bold.woff2') format('woff2'),*/
+/*    url('/fonts/Brothers-OT-Bold.woff') format('woff');*/
+/*    font-weight: 700;*/
+/*    font-style: normal;*/
+/*    font-display: swap;*/
+/*}*/
 
-@font-face {
-    font-family: 'Interstate';
-    src: url('/fonts/Interstate-Light.woff2') format('woff2'),
-    url('/fonts/Interstate-Light.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
+/*@font-face {*/
+/*    font-family: 'interstate';*/
+/*    src: url('/fonts/Interstate-Light.woff2') format('woff2'),*/
+/*    url('/fonts/Interstate-Light.woff') format('woff');*/
+/*    font-weight: 300;*/
+/*    font-style: normal;*/
+/*    font-display: swap;*/
+/*}*/
 
 @custom-variant dark (&:is(.dark *));
 
@@ -77,8 +77,8 @@
     --color-background: var(--color-stone);
 
 
-    --font-display: 'Brothers', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-sans: 'Interstate', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    --font-display: 'brothers', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-sans: 'interstate', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .dark {
