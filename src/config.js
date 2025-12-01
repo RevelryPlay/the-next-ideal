@@ -27,7 +27,7 @@ export const RSS_FEED = {
 export const TRAILER = {
   // YouTube embed URL for the podcast trailer
   url: 'https://www.youtube.com/embed/J6fLgg6PyeI?si=cXAS3Eszmjcec8RF',
-  title: 'Podcast Trailer',
+  title: 'the Next Ideal Trailer',
 };
 
 export const EMAIL_SIGNUP = {
