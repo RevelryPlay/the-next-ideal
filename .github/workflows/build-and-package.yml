@@ -34,9 +34,11 @@ jobs:
           # Copy built assets
           cp -r dist deploy-package/
 
-          # Copy server files
+          # Copy server file
           cp server.js deploy-package/
-          cp server.config.js deploy-package/ || cp server.config.example.js deploy-package/server.config.js
+
+          # Copy index.html
+          cp index.html deploy-package/
 
           # Copy public assets
           cp -r public deploy-package/
@@ -44,24 +46,6 @@ jobs:
           # Copy package files (needed for npm install in production)
           cp package.json deploy-package/
           cp package-lock.json deploy-package/
-
-          # Copy PM2 ecosystem config if using PM2
-          cp ecosystem.config.cjs deploy-package/
-
-          # Copy any additional config files
-          cp .nvmrc deploy-package/ || true
-
-          # Create a simple deployment README
-          echo "# Deployment Package" > deploy-package/DEPLOY.md
-          echo "" >> deploy-package/DEPLOY.md
-          echo "## Installation" >> deploy-package/DEPLOY.md
-          echo "1. Extract this package to your server" >> deploy-package/DEPLOY.md
-          echo "2. Run: npm ci --omit=dev" >> deploy-package/DEPLOY.md
-          echo "3. Configure server.config.js with your settings" >> deploy-package/DEPLOY.md
-          echo "4. Start the server: npm start" >> deploy-package/DEPLOY.md
-          echo "" >> deploy-package/DEPLOY.md
-          echo "## PM2 Deployment (Optional)" >> deploy-package/DEPLOY.md
-          echo "If using PM2: pm2 start ecosystem.config.cjs" >> deploy-package/DEPLOY.md
 
       - name: Create zip archive
         run: |
@@ -90,18 +74,14 @@ jobs:
             ### Installation Steps
             1. Extract the package to your server
             2. Run: `npm ci --omit=dev`
-            3. Configure `server.config.js` with your settings
-            4. Start the server: `npm start`
-
-            ### PM2 Deployment (Optional)
-            If using PM2: `pm2 start ecosystem.config.cjs`
+            3. Start the server: `npm start`
 
             ### Package Contents
             - Built assets (dist/)
-            - Server files (server.js, server.config.js)
+            - Server file (server.js)
+            - Entry point (index.html)
             - Public assets (public/)
             - Dependencies manifest (package.json, package-lock.json)
-            - PM2 configuration (ecosystem.config.cjs)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -126,7 +106,7 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Package Contents:**" >> $GITHUB_STEP_SUMMARY
           echo "- Built assets (dist/)" >> $GITHUB_STEP_SUMMARY
-          echo "- Server files (server.js, server.config.js)" >> $GITHUB_STEP_SUMMARY
+          echo "- Server file (server.js)" >> $GITHUB_STEP_SUMMARY
+          echo "- Entry point (index.html)" >> $GITHUB_STEP_SUMMARY
           echo "- Public assets (public/)" >> $GITHUB_STEP_SUMMARY
           echo "- Dependencies manifest (package.json, package-lock.json)" >> $GITHUB_STEP_SUMMARY
-          echo "- PM2 configuration (ecosystem.config.cjs)" >> $GITHUB_STEP_SUMMARY
