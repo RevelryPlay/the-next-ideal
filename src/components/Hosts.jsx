@@ -1,4 +1,5 @@
 import { HOSTS } from '../config.js';
+import { parseMarkdownLinks } from '../utils/parseMarkdownLinks.jsx';
 
 // Responsive image component with modern formats
 const ResponsiveHostImage = ({ imageName, alt }) => {
@@ -54,7 +55,7 @@ export const Hosts = () => {
                             {host.name}
                         </h3>
                         <p className="text-lg text-kholin-blue dark:text-stone leading-relaxed">
-                            {host.bio}
+                            {parseMarkdownLinks(host.bio)}
                         </p>
                     </div>
                 ))}
