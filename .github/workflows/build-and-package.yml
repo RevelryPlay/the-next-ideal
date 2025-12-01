@@ -31,17 +31,11 @@ jobs:
         run: |
           mkdir -p deploy-package
 
-          # Copy built assets
+          # Copy built assets (includes index.html and public assets)
           cp -r dist deploy-package/
 
           # Copy server file
           cp server.js deploy-package/
-
-          # Copy index.html
-          cp index.html deploy-package/
-
-          # Copy public assets
-          cp -r public deploy-package/
 
           # Copy package files (needed for npm install in production)
           cp package.json deploy-package/
