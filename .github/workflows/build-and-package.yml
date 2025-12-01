@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*.*.*'  # Triggers on version tags like v1.0.0, v2.1.3, etc.
 
 jobs:
   build-and-package:
@@ -74,14 +76,53 @@ jobs:
           path: landing-page-deploy.zip
           retention-days: 30
 
-      - name: Upload artifact summary
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: landing-page-deploy.zip
+          generate_release_notes: true
+          body: |
+            ## Deployment Package
+
+            Download `landing-page-deploy.zip` and extract it on your server.
+
+            ### Installation Steps
+            1. Extract the package to your server
+            2. Run: `npm ci --omit=dev`
+            3. Configure `server.config.js` with your settings
+            4. Start the server: `npm start`
+
+            ### PM2 Deployment (Optional)
+            If using PM2: `pm2 start ecosystem.config.cjs`
+
+            ### Package Contents
+            - Built assets (dist/)
+            - Server files (server.js, server.config.js)
+            - Public assets (public/)
+            - Dependencies manifest (package.json, package-lock.json)
+            - PM2 configuration (ecosystem.config.cjs)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload summary
         run: |
-          echo "### Deployment Package Created :rocket:" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Build Information:**" >> $GITHUB_STEP_SUMMARY
-          echo "- Commit: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Branch: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Artifact: landing-page-deployment" >> $GITHUB_STEP_SUMMARY
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            echo "### GitHub Release Created :rocket:" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**Release Information:**" >> $GITHUB_STEP_SUMMARY
+            echo "- Tag: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+            echo "- Commit: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "View the release at: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### Deployment Package Created :rocket:" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**Build Information:**" >> $GITHUB_STEP_SUMMARY
+            echo "- Commit: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+            echo "- Branch: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+            echo "- Artifact: landing-page-deployment" >> $GITHUB_STEP_SUMMARY
+          fi
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Package Contents:**" >> $GITHUB_STEP_SUMMARY
           echo "- Built assets (dist/)" >> $GITHUB_STEP_SUMMARY
@@ -89,5 +130,3 @@ jobs:
           echo "- Public assets (public/)" >> $GITHUB_STEP_SUMMARY
           echo "- Dependencies manifest (package.json, package-lock.json)" >> $GITHUB_STEP_SUMMARY
           echo "- PM2 configuration (ecosystem.config.cjs)" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Download the artifact from the Actions tab to deploy." >> $GITHUB_STEP_SUMMARY
