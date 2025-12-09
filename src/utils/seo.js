@@ -76,3 +76,39 @@ export function initSEO() {
   // Canonical URL
   setLinkTag('canonical', SITE.url);
 }
+
+/**
+ * Update SEO meta tags for a specific page
+ */
+export function updateSEO({ title, description, path = '', image, keywords }) {
+  const pageTitle = title ? `${title} - ${SITE.name}` : `${SITE.name} - ${SITE.tagline}`;
+  const pageDescription = description || SITE.description;
+  const pageUrl = `${SITE.url}${path}`;
+  const pageKeywords = keywords || SITE.keywords;
+  const fullImageUrl = image
+    ? (image.startsWith('http') ? image : `${SITE.url}${image}`)
+    : (SITE.image.startsWith('http') ? SITE.image : `${SITE.url}${SITE.image}`);
+
+  // Update document title
+  document.title = pageTitle;
+
+  // Update primary meta tags
+  setMetaTag('name', 'title', pageTitle);
+  setMetaTag('name', 'description', pageDescription);
+  setMetaTag('name', 'keywords', pageKeywords);
+
+  // Update Open Graph tags
+  setMetaTag('property', 'og:url', pageUrl);
+  setMetaTag('property', 'og:title', pageTitle);
+  setMetaTag('property', 'og:description', pageDescription);
+  setMetaTag('property', 'og:image', fullImageUrl);
+
+  // Update Twitter tags
+  setMetaTag('name', 'twitter:url', pageUrl);
+  setMetaTag('name', 'twitter:title', pageTitle);
+  setMetaTag('name', 'twitter:description', pageDescription);
+  setMetaTag('name', 'twitter:image', fullImageUrl);
+
+  // Update canonical URL
+  setLinkTag('canonical', pageUrl);
+}

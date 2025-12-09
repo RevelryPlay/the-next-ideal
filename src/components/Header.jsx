@@ -32,6 +32,15 @@ export const Header = () => {
                     >
                         Episodes
                     </Link>
+                    <Link
+                        to="/resources"
+                        viewTransition
+                        className={`font-display font-bold text-stone/70 no-underline px-4 py-2 rounded transition-colors hover:text-stormlight-gold hover:bg-white/10 ${
+                            location.pathname === '/resources' ? 'text-stormlight-gold bg-white/10' : ''
+                        }`}
+                    >
+                        Resources
+                    </Link>
                 </nav>
 
                 {/* Logo - Center on desktop, first on mobile */}

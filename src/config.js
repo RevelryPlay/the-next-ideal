@@ -83,10 +83,38 @@ export const HOSTS = [
   {
     name: 'Ben Jeppsen',
     image: 'Ben_Jeppsen_Horizontal',
-    bio: '',
+    bio: 'Ben Jeppsen is the Stormlight Psychologist who helps us explore the minds of the characters. Holding a PhD in Counseling Psychology, Ben draws on his extensive clinical background, including work at university counseling centers, private practice, and time serving active-duty servicemen at Fort Knox. Now a Professor, Ben has dedicated his career to finding the profound psychological truths and mental health lessons hidden in our favorite fictional worlds. Upon first reading, The Way of Kings immediately became his favorite book because of the prominent themes of mental health and resilience through real human struggle. On the show, he provides the clinical context for the intense themes of trauma, depression, and redemption found in The Stormlight Archive.',
   },
 ];
 
+
+/**
+ * Resources
+ * Mental health and support resources for listeners
+ */
+export const RESOURCES = [
+  {
+    title: 'Next Step Coin',
+    url: 'https://www.dragonsteelbooks.com/products/next-step-coin',
+    logo: '/resources/next-step-coin.jpg',
+    description: 'Though you bear the pain, you don\'t deserve it—and you don\'t walk alone. This coin is a symbol of oaths made to yourself and this community: to keep fighting, to help others, and to never surrender to darkness. Free for those in need, it links you to mental health support through NerdHQ and TimelyCare. Journey before destination, Radiant.',
+    linkText: 'Strength Before Weakness',
+  },
+  {
+    title: 'NerdHQ',
+    url: 'https://nerdhq.org/',
+    logo: '/resources/nerdhq-logo.webp',
+    description: 'A mental health resource dedicated to the geek and gaming community, providing counseling and support services tailored to nerd culture.',
+    linkText: 'Visit Website',
+  },
+  {
+    title: 'TimelyCare',
+    url: 'https://timelycare.com',
+    logo: '/resources/timelycare-logo.svg',
+    description: 'Virtual health and well-being services providing 24/7 access to mental health support, medical care, and self-care resources.',
+    linkText: 'Visit Website',
+  },
+];
 
 /** * Default User Preferences
  */
