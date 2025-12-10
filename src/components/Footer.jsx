@@ -12,9 +12,10 @@ export const Footer = () => {
                     <p className="text-sm">Not affiliated with Brandon Sanderson or Dragonsteel Entertainment</p>
                 </div>
                 <div className="flex flex-col items-center-safe text-center">
-                    <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-2 gap-x-6 justify-items-center items-center-safe text-center">
+                    <nav aria-label="Footer navigation" className="grid grid-cols-3 gap-2 gap-x-6 justify-items-center items-center-safe text-center">
                         <a href="/" className=" mb-2 text-white hover:text-accent-light">Home</a>
                         <a href="/episodes" className=" mb-2 text-white hover:text-accent-light">Episodes</a>
+                        <a href="/resources" className=" mb-2 text-white hover:text-accent-light">Resources</a>
                     </nav>
 
                     <SocialLinks />
