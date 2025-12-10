@@ -8,9 +8,10 @@
   },
   "scripts": {
     "dev": "concurrently \"vite\" \"node server.js\"",
-    "build-all": "node scripts/generate-sitemap.js && vite build",
-    "build": "vite build",
+    "build-all": "node scripts/generate-sitemap.js && vite build && node scripts/generate-static-pages.js",
+    "build": "vite build && node scripts/generate-static-pages.js",
     "generate:sitemap": "node scripts/generate-sitemap.js",
+    "generate:static": "node scripts/generate-static-pages.js",
     "start": "NODE_ENV=production node server.js",
     "generate:social": "node scripts/generate-social-image.js"
   },
